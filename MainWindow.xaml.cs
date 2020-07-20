@@ -19,6 +19,7 @@ namespace Dynamic_C_Notebook
             InitializeComponent();
 
             CheckOpenFolder();
+            AddCodeCellButton_Click(new object(), new RoutedEventArgs());
         }
 
         /// <summary>
@@ -117,13 +118,18 @@ namespace Dynamic_C_Notebook
         }
 
         /// <summary>
+        /// 代码片段序号
+        /// </summary>
+        private static int _codeCellIndex;
+
+        /// <summary>
         /// 添加代码片段
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void AddCodeCellButton_Click(object sender, RoutedEventArgs e)
         {
-            Border outsideBorder = new Border { BorderThickness = new Thickness(30), BorderBrush = Brushes.White };
+            Border outsideBorder = new Border { BorderThickness = new Thickness(30), BorderBrush = Brushes.White, Uid = _codeCellIndex + "border" };
             Border roundBorder = new Border { BorderThickness = new Thickness(1), BorderBrush = Brushes.Black, CornerRadius = new CornerRadius(5) };
 
             Grid grid = new Grid();
@@ -134,20 +140,26 @@ namespace Dynamic_C_Notebook
             grid.Children.Add(buttonsPanel);
             Grid.SetColumn(buttonsPanel, 0);
 
+            // “运行”按钮
             ImageBrush runImage = new ImageBrush();
             string runUrl = @"E:\Code\C#\Dynamic_C_Notebook\Resources\start.png";
             runImage.ImageSource = new BitmapImage(new Uri(runUrl, UriKind.Absolute));
-            Button runButton = new Button { Height = 30, Width = 30, BorderBrush = null, Background = runImage };
+            Button runButton = new Button { Height = 30, Width = 30, BorderBrush = null, Background = runImage, Uid = _codeCellIndex + "run" };
+            runButton.Click += RunButton_Click;
 
+            // “编译”按钮
             ImageBrush compileImage = new ImageBrush();
             string compileUrl = @"E:\Code\C#\Dynamic_C_Notebook\Resources\settings2.png";
             compileImage.ImageSource = new BitmapImage(new Uri(compileUrl, UriKind.Absolute));
-            Button compileButton = new Button { Height = 30, Width = 30, BorderBrush = null, Background = compileImage };
+            Button compileButton = new Button { Height = 30, Width = 30, BorderBrush = null, Background = compileImage, Uid = _codeCellIndex + "compile" };
+            compileButton.Click += CompileButton_Click;
 
+            // “删除”按钮
             ImageBrush deleteImage = new ImageBrush();
             string deleteUrl = @"E:\Code\C#\Dynamic_C_Notebook\Resources\delete.png";
             deleteImage.ImageSource = new BitmapImage(new Uri(deleteUrl, UriKind.Absolute));
-            Button deleteButton = new Button { Height = 30, Width = 30, BorderBrush = null, Background = deleteImage };
+            Button deleteButton = new Button { Height = 30, Width = 30, BorderBrush = null, Background = deleteImage, Uid = _codeCellIndex + "delete" };
+            deleteButton.Click += DeleteButton_Click;
 
             buttonsPanel.Children.Add(runButton);
             buttonsPanel.Children.Add(compileButton);
@@ -157,6 +169,7 @@ namespace Dynamic_C_Notebook
             grid.Children.Add(codeBorder);
             Grid.SetColumn(codeBorder, 1);
 
+            // 编辑器
             TextEditor textEditor = new TextEditor
             {
                 ShowLineNumbers = true,
@@ -164,14 +177,56 @@ namespace Dynamic_C_Notebook
                 Options = { ShowSpaces = true },
                 FontSize = 16,
                 HorizontalScrollBarVisibility = ScrollBarVisibility.Auto,
-                VerticalScrollBarVisibility = ScrollBarVisibility.Auto
+                VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
+                Uid = _codeCellIndex + "text"
             };
+
             codeBorder.Child = textEditor;
 
             roundBorder.Child = grid;
             outsideBorder.Child = roundBorder;
 
             CodeCellsPanel.Children.Add(outsideBorder);
+
+            _codeCellIndex += 1;
+        }
+
+        /// <summary>
+        /// 删除代码片段
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            string uid = ((Button)sender).Uid.Replace("delete", "");
+            foreach (Border border in CodeCellsPanel.Children)
+            {
+                if (border.Uid == uid + "border")
+                {
+                    CodeCellsPanel.Children.Remove(border);
+                    break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 编译代码片段中的代码
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CompileButton_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 运行代码片段中的代码
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RunButton_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }
