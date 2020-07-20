@@ -51,9 +51,14 @@
             </Grid.RowDefinitions>
 
             <StackPanel Grid.Row="0" Grid.Column="0">
-                <Button Height="50" BorderBrush="{x:Null}">
+                <Button Name="FilesCloseButton" Height="50" BorderBrush="{x:Null}" Click="FilesButton_Click" Visibility="Collapsed">
                     <Button.Background>
                         <ImageBrush ImageSource="Resources/file_close.png"/>
+                    </Button.Background>
+                </Button>
+                <Button Name="FilesOpenButton" Height="50" BorderBrush="{x:Null}" Click="FilesButton_Click">
+                    <Button.Background>
+                        <ImageBrush ImageSource="Resources/file_open.png"/>
                     </Button.Background>
                 </Button>
             </StackPanel>
@@ -79,21 +84,20 @@
         </Grid>
 
         <!--展开的侧边栏 和 代码区-->
-        <Grid Grid.Row="1" Grid.Column="1">
+        <Grid Grid.Row="1" Grid.Column="1" Name="SidePanelAndCodeGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150"/>
                 <ColumnDefinition Width="3"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.Column="0">
+            <StackPanel Grid.Column="0" Name="FilesSidePanel">
                 <Button Content="fileName"></Button>
                 <Button Content="fileName"></Button>
                 <Button Content="fileName"></Button>
             </StackPanel>
-            <GridSplitter Grid.Column="1" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+            <GridSplitter Grid.Column="1" Width="3" Name="SidePanelSplitter" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
             <StackPanel Grid.Column="2" Orientation="Vertical">
-                <avalonEdit:TextEditor Height="200" SyntaxHighlighting="C++" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"/>
                 <avalonEdit:TextEditor SyntaxHighlighting="C++" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"/>
             </StackPanel>
         </Grid>
