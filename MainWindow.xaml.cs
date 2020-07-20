@@ -147,13 +147,6 @@ namespace Dynamic_C_Notebook
             Button runButton = new Button { Height = 30, Width = 30, BorderBrush = null, Background = runImage, Uid = _codeCellIndex + "run" };
             runButton.Click += RunButton_Click;
 
-            // “编译”按钮
-            ImageBrush compileImage = new ImageBrush();
-            string compileUrl = @"E:\Code\C#\Dynamic_C_Notebook\Resources\settings2.png";
-            compileImage.ImageSource = new BitmapImage(new Uri(compileUrl, UriKind.Absolute));
-            Button compileButton = new Button { Height = 30, Width = 30, BorderBrush = null, Background = compileImage, Uid = _codeCellIndex + "compile" };
-            compileButton.Click += CompileButton_Click;
-
             // “删除”按钮
             ImageBrush deleteImage = new ImageBrush();
             string deleteUrl = @"E:\Code\C#\Dynamic_C_Notebook\Resources\delete.png";
@@ -162,7 +155,6 @@ namespace Dynamic_C_Notebook
             deleteButton.Click += DeleteButton_Click;
 
             buttonsPanel.Children.Add(runButton);
-            buttonsPanel.Children.Add(compileButton);
             buttonsPanel.Children.Add(deleteButton);
 
             Border codeBorder = new Border { BorderThickness = new Thickness(5) };
@@ -178,8 +170,10 @@ namespace Dynamic_C_Notebook
                 FontSize = 16,
                 HorizontalScrollBarVisibility = ScrollBarVisibility.Auto,
                 VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
-                Uid = _codeCellIndex + "text"
+                Uid = _codeCellIndex + "text",
+                MinHeight = 100
             };
+            textEditor.TextArea.TextEntered += TextArea_TextEntered;
 
             codeBorder.Child = textEditor;
 
@@ -210,13 +204,34 @@ namespace Dynamic_C_Notebook
         }
 
         /// <summary>
-        /// 编译代码片段中的代码
+        /// 从CodeCellsPanel中分离出用户输入的代码
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void CompileButton_Click(object sender, RoutedEventArgs e)
+        /// <param name="uidToFind">对应代码片段按钮的Uid</param>
+        /// <returns>用户输入的代码</returns>
+        private string GetTextEditorTextFromCodeCellsPanel(string uidToFind)
         {
-            throw new NotImplementedException();
+            string code = "";
+            foreach (Border outsideBorder in CodeCellsPanel.Children)
+            {
+                if (outsideBorder.Uid != uidToFind + "border") { continue; }
+
+                Border roundBorder = (Border)outsideBorder.Child;
+                Grid grid = (Grid)roundBorder.Child;
+                foreach (UIElement element in grid.Children)
+                {
+                    if (element.GetType() == typeof(Border))
+                    {
+                        Border codeBorder = (Border)element;
+                        TextEditor textEditor = (TextEditor)codeBorder.Child;
+                        code = textEditor.Text;
+                        break;
+                    }
+                }
+
+                if (code != "") { break; }
+            }
+
+            return code;
         }
 
         /// <summary>
@@ -226,7 +241,10 @@ namespace Dynamic_C_Notebook
         /// <param name="e"></param>
         private void RunButton_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            string buttonUid = ((Button)sender).Uid.Replace("run", "");
+
+            // TODO 代码分离
+            Console.WriteLine(GetTextEditorTextFromCodeCellsPanel(buttonUid));
         }
     }
 }
