@@ -51,12 +51,12 @@
             </Grid.RowDefinitions>
 
             <StackPanel Grid.Row="0" Grid.Column="0">
-                <Button Name="FilesCloseButton" Height="50" BorderBrush="{x:Null}" Click="FilesButton_Click">
+                <Button Name="FilesCloseButton" Height="50" BorderBrush="{x:Null}" Click="FilesButton_Click" Visibility="Collapsed">
                     <Button.Background>
                         <ImageBrush ImageSource="Resources/file_close.png"/>
                     </Button.Background>
                 </Button>
-                <Button Name="FilesOpenButton" Height="50" BorderBrush="{x:Null}" Click="FilesButton_Click" Visibility="Collapsed">
+                <Button Name="FilesOpenButton" Height="50" BorderBrush="{x:Null}" Click="FilesButton_Click">
                     <Button.Background>
                         <ImageBrush ImageSource="Resources/file_open.png"/>
                     </Button.Background>
@@ -91,12 +91,37 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.Column="0" Name="FilesSidePanel" Visibility="Collapsed"/>
+            <StackPanel Grid.Column="0" Name="FilesSidePanel"/>
             <GridSplitter Grid.Column="1" Width="3" Name="SidePanelSplitter" 
-                          VerticalAlignment="Stretch" HorizontalAlignment="Center" Visibility="Collapsed"/>
-            <StackPanel Grid.Column="2" Orientation="Vertical">
-                <avalonEdit:TextEditor SyntaxHighlighting="C++" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"/>
-            </StackPanel>
+                          VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                    <Button Width="120" BorderBrush="{x:Null}" Background="White" HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Resources/add.png"/>
+                            <TextBlock Text="添加代码" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Width="120" BorderBrush="{x:Null}" Background="White" HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Resources/settings2.png"/>
+                            <TextBlock Text="仅编译" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Width="120" BorderBrush="{x:Null}" Background="White" HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Resources/start.png"/>
+                            <TextBlock Text="运行" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Name="CodeCellsPanel"/>
+            </Grid>
         </Grid>
     </Grid>
 </Window>

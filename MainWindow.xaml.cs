@@ -13,6 +13,29 @@ namespace Dynamic_C_Notebook
         public MainWindow()
         {
             InitializeComponent();
+
+            CheckOpenFolder();
+        }
+
+        /// <summary>
+        /// 检查未打开文件夹时，将显示提示信息，提示用户打开文件夹
+        /// </summary>
+        private void CheckOpenFolder()
+        {
+            if (FilesSidePanel.Children.Count == 0)
+            {
+                Label label = new Label { Content = "尚未打开文件夹", Height = 30 };
+                Button button = new Button
+                {
+                    Content = "打开文件夹",
+                    Width = 100,
+                    Height = 25,
+                    Background = Brushes.White
+                };
+                button.Click += OpenFolder_Click;
+                FilesSidePanel.Children.Add(label);
+                FilesSidePanel.Children.Add(button);
+            }
         }
 
         /// <summary>
@@ -40,21 +63,7 @@ namespace Dynamic_C_Notebook
                 SidePanelAndCodeGrid.ColumnDefinitions[0].Width = new GridLength(150, GridUnitType.Pixel);
                 SidePanelAndCodeGrid.ColumnDefinitions[1].Width = new GridLength(3, GridUnitType.Pixel);
 
-                // 未打开文件夹时，显示提示信息，提示打开文件夹
-                if (FilesSidePanel.Children.Count == 0)
-                {
-                    Label label = new Label { Content = "尚未打开文件夹", Height = 30 };
-                    Button button = new Button
-                    {
-                        Content = "打开文件夹",
-                        Width = 100,
-                        Height = 25,
-                        Background = Brushes.White
-                    };
-                    button.Click += OpenFolder_Click;
-                    FilesSidePanel.Children.Add(label);
-                    FilesSidePanel.Children.Add(button);
-                }
+                CheckOpenFolder();
             }
         }
 

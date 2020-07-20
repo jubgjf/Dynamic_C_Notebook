@@ -115,5 +115,15 @@
     <Resource Include="Resources\settings.png" />
     <Resource Include="Resources\settings_bold.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\add.png" />
+    <Resource Include="Resources\add_bold.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\settings2.png" />
+    <Resource Include="Resources\settings2_bold.png" />
+    <Resource Include="Resources\start.png" />
+    <Resource Include="Resources\start_bold.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
