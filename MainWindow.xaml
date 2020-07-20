@@ -4,10 +4,98 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Dynamic_C_Notebook"
+        xmlns:avalonEdit="clr-namespace:ICSharpCode.AvalonEdit;assembly=ICSharpCode.AvalonEdit"
         mc:Ignorable="d"
         Title="Dynamic C Notebook" Height="768" Width="1366"
         WindowStartupLocation="CenterScreen">
+
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition/>
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <!--菜单栏-->
+        <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Height="25" Background="White">
+            <MenuItem Header="文件" Height="25">
+                <MenuItem Header="新建" Command="New"/>
+                <Separator/>
+                <MenuItem Header="打开" Command="Open"/>
+                <MenuItem Header="打开文件夹"/>
+                <Separator/>
+                <MenuItem Header="自动保存" IsCheckable="True" IsChecked="False"/>
+                <MenuItem Header="保存" Command="Save"/>
+                <MenuItem Header="另存为" Command="SaveAs"/>
+                <Separator/>
+                <MenuItem Header="设置" Command="Properties"/>
+            </MenuItem>
+            <MenuItem Header="运行" Height="25">
+                <MenuItem Header="仅编译"/>
+                <MenuItem Header="运行"/>
+            </MenuItem>
+            <MenuItem Header="帮助" Height="25">
+                <MenuItem Header="帮助" Command="Help"/>
+            </MenuItem>
+        </Menu>
+
+        <!--侧边栏-->
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Grid.Column="0">
+                <Button Height="50" BorderBrush="{x:Null}">
+                    <Button.Background>
+                        <ImageBrush ImageSource="Resources/file_close.png"/>
+                    </Button.Background>
+                </Button>
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="0">
+                <StackPanel.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="LayoutTransform">
+                            <Setter.Value>
+                                <RotateTransform Angle="180"/>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </StackPanel.Resources>
+                <StackPanel.LayoutTransform>
+                    <RotateTransform Angle="180"/>
+                </StackPanel.LayoutTransform>
+                <Button Height="50" BorderBrush="{x:Null}">
+                    <Button.Background>
+                        <ImageBrush ImageSource="Resources/settings.png"/>
+                    </Button.Background>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <!--展开的侧边栏 和 代码区-->
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="3"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0">
+                <Button Content="fileName"></Button>
+                <Button Content="fileName"></Button>
+                <Button Content="fileName"></Button>
+            </StackPanel>
+            <GridSplitter Grid.Column="1" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+            <StackPanel Grid.Column="2" Orientation="Vertical">
+                <avalonEdit:TextEditor Height="200" SyntaxHighlighting="C++" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"/>
+                <avalonEdit:TextEditor SyntaxHighlighting="C++" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>
