@@ -101,26 +101,28 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Grid.Row="0" Orientation="Horizontal">
-                    <Button Width="120" BorderBrush="{x:Null}" Background="White" HorizontalAlignment="Left">
+                    <Button Width="120" BorderBrush="{x:Null}" Background="White" Click="AddCodeCellButton_Click">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="Resources/add.png"/>
                             <TextBlock Text="添加代码" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
-                    <Button Width="120" BorderBrush="{x:Null}" Background="White" HorizontalAlignment="Left">
+                    <Button Width="120" BorderBrush="{x:Null}" Background="White">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="Resources/settings2.png"/>
-                            <TextBlock Text="仅编译" VerticalAlignment="Center"/>
+                            <TextBlock Text="全部编译" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
-                    <Button Width="120" BorderBrush="{x:Null}" Background="White" HorizontalAlignment="Left">
+                    <Button Width="120" BorderBrush="{x:Null}" Background="White">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="Resources/start.png"/>
-                            <TextBlock Text="运行" VerticalAlignment="Center"/>
+                            <TextBlock Text="全部运行" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
                 </StackPanel>
-                <StackPanel Grid.Row="1" Name="CodeCellsPanel"/>
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <StackPanel Name="CodeCellsPanel"/>
+                </ScrollViewer>
             </Grid>
         </Grid>
     </Grid>
