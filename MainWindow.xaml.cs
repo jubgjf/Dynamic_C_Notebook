@@ -142,14 +142,14 @@ namespace Dynamic_C_Notebook
 
             // “运行”按钮
             ImageBrush runImage = new ImageBrush();
-            string runUrl = @"E:\Code\C#\Dynamic_C_Notebook\Resources\start.png";
+            string runUrl = "pack://application:,,,/Resources/start.png";
             runImage.ImageSource = new BitmapImage(new Uri(runUrl, UriKind.Absolute));
             Button runButton = new Button { Height = 30, Width = 30, BorderBrush = null, Background = runImage, Uid = _codeCellIndex + "run" };
             runButton.Click += RunButton_Click;
 
             // “删除”按钮
             ImageBrush deleteImage = new ImageBrush();
-            string deleteUrl = @"E:\Code\C#\Dynamic_C_Notebook\Resources\delete.png";
+            string deleteUrl = "pack://application:,,,/Resources/delete.png";
             deleteImage.ImageSource = new BitmapImage(new Uri(deleteUrl, UriKind.Absolute));
             Button deleteButton = new Button { Height = 30, Width = 30, BorderBrush = null, Background = deleteImage, Uid = _codeCellIndex + "delete" };
             deleteButton.Click += DeleteButton_Click;
